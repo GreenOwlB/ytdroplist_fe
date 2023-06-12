@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react";
-import { getAllVideos } from "../api/videos";
+import { useEffect } from "react";
+import { useVideos } from "../context/videos";
 
 const BaseList = () => {
-  const [videos, setVideos] = useState([]);
-
-  const getVideos = async () => {
-    const videos = await getAllVideos();
-    setVideos(videos);
-  };
+  const videos = useVideos();
+  const allVideos = videos.videos;
 
   useEffect(() => {
-    getVideos();
-  }, []);
+    videos.loadAllVideos();
+  }, [videos]);
+
+  const handleDelete = (id) => {
+    videos.deleteVideo(id);
+  };
 
   return (
     <div>
-      <h2>List</h2>
       <div className="videoList">
-        {videos &&
-          videos.map((video) => {
+        {allVideos &&
+          allVideos.map((video) => {
             return (
-              <div key={video.id}>
+              <div key={video.id} className="videoContainer">
                 <h3>{video.title}</h3>
                 <p>{video.channel}</p>
                 <p>{video.date_published}</p>
                 <p>{video.description}</p>
+                <button onClick={() => handleDelete(video.id)}>Delete</button>
               </div>
             );
           })}

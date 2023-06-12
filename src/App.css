@@ -1,0 +1,33 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoList {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoContainer {
+  margin: 10px;
+  padding: 10px;
+  max-width: 500px;
+  width: 100%;
+  /* border: 1px solid #333; */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.addVideoManually {
+  display: flex;
+  flex-direction: column;
+}
+
+.addVideoManually input,
+.addVideoManually textarea {
+  margin-top: 5px;
+}

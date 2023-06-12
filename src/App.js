@@ -1,10 +1,14 @@
 import "./App.css";
 import BaseList from "./modules/BaseList";
-
+import ManualAddVideo from "./modules/ManualAddVideo";
+import { VideoProvider } from "./context/videos";
 function App() {
   return (
     <div className="App">
-      <BaseList />
+      <VideoProvider>
+        <BaseList />
+        <ManualAddVideo />
+      </VideoProvider>
     </div>
   );
 }
