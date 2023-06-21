@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useVideos } from "../context/videos";
+import VideoCard from "./VideoCard";
 
 const BaseList = () => {
   const videos = useVideos();
-  const { allVideos, loadAllVideos, deleteVideo } = videos;
-
-  // console.log(allVideos);
+  const { allVideos, loadAllVideos } = videos;
 
   const handleFirstLoad = () => {
     if (!allVideos.length) {
@@ -14,42 +13,14 @@ const BaseList = () => {
   };
 
   useEffect(() => {
-    // loadAllVideos();
     handleFirstLoad();
   });
 
-  const handleDelete = (id) => {
-    deleteVideo(id);
-  };
-
   return (
-    <div>
+    <div className="listContainer">
       <div className="videoList">
         {allVideos &&
-          allVideos.map((video) => {
-            return (
-              <div key={video.id} className="videoContainer">
-                <div className="videoImgContainer">
-                  <img src={video.thumbnail_df} alt="" />
-                </div>
-                <div className="videoInfoContainer">
-                  <h3>{video.title}</h3>
-                  <p>{video.channel}</p>
-                  <p>{video.date_published}</p>
-                </div>
-                <div className="buttonContainer">
-                  <button onClick={() => handleDelete(video.id)}>Delete</button>
-                  <a
-                    href={`https://www.youtube.com/watch?v=${video.yt_id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Watch
-                  </a>
-                </div>
-              </div>
-            );
-          })}
+          allVideos.map((video) => <VideoCard video={video} key={video.id} />)}
       </div>
     </div>
   );

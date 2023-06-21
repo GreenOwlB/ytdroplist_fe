@@ -24,6 +24,7 @@ const DropVideo = () => {
 
     if (e.dataTransfer.items) {
       const linkData = [...e.dataTransfer.items];
+      //---Note: is currently not grabbing shorts. Change? ---
       const linkRegex = /^(https:\/\/www.youtube.com\/watch\?v=).{11}/;
       if (linkData[0].kind === "string") {
         linkData[0].getAsString((string) => {

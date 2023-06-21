@@ -1,6 +1,6 @@
 import "./App.css";
 import BaseList from "./modules/BaseList";
-import ManualAddVideo from "./modules/ManualAddVideo";
+// import ManualAddVideo from "./modules/ManualAddVideo";
 import DropVideo from "./modules/DropVideo";
 import { VideoProvider } from "./context/videos";
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <VideoProvider>
         <BaseList />
-        <ManualAddVideo />
+        {/* <ManualAddVideo /> */}
         <DropVideo />
       </VideoProvider>
     </div>
