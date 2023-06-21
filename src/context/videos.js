@@ -4,16 +4,17 @@ import axios from "axios";
 const VideoContext = createContext(null);
 
 export const VideoProvider = ({ children }) => {
-  const [videos, setVideos] = useState([]);
+  const [allVideos, setAllVideos] = useState([]);
   const [adding, setAdding] = useState(false);
 
   const url = "http://localhost:3001";
 
   const loadAllVideos = async () => {
+    console.log("loading videos");
     try {
       const result = await axios.get(`${url}/videos`);
       if (result.data) {
-        setVideos(result.data);
+        setAllVideos(result.data);
       } else {
         console.log("no data received");
       }
@@ -27,6 +28,7 @@ export const VideoProvider = ({ children }) => {
     try {
       const result = await axios.post(`${url}/videos`, inputData);
       console.log(result);
+      await loadAllVideos();
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +38,18 @@ export const VideoProvider = ({ children }) => {
     try {
       const result = await axios.delete(`${url}/videos/${id}`);
       console.log(result.data);
+      await loadAllVideos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAndSaveYtData = async (yt_id) => {
+    try {
+      const result = await axios.post(`${url}/yt`, yt_id);
+      console.log(result);
+      // add adding message
+      await loadAllVideos();
     } catch (error) {
       console.log(error);
     }
@@ -44,11 +58,12 @@ export const VideoProvider = ({ children }) => {
   return (
     <VideoContext.Provider
       value={{
-        videos,
+        allVideos,
         adding,
         loadAllVideos,
         addVideo,
         deleteVideo,
+        getAndSaveYtData,
       }}
     >
       {children}
